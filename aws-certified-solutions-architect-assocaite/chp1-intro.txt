@@ -1,0 +1,11 @@
+Response Types
+
+  Scenario based
+    - Large majority of questions based on real-world scenarios
+
+  Multiple choice
+    - Has one correct response and three incorrect responses
+
+  Multiple response
+    - Has two correct responses out of five response options
+

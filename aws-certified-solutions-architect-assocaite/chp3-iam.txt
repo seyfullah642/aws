@@ -1,0 +1,43 @@
+Securing root account
+  - Root account is the email you used to signup for AWS
+  - Add MFA for security
+
+  Exam Tips
+    - Enable multi-factor authentication on the root account
+    - Create an admin group for your administrators, and assign the appropiate permissions to this group
+    - Create user accounts for administrators
+    - Add your users to the admin group
+
+############################################################
+
+Controlling Users Actions with IAM Policy Documents
+
+  IAM Policy Documents
+    - Can be assigned to Groups, Users, and Roles
+    - Typically you won't assign a User to a IAM policy, you would add the User to a Group, and add the IAM Policy to
+      the Group. User then inherits permission from the Group
+    - IAM works at a Global level not a Region level
+
+############################################################
+
+Permanent IAM Credentials
+
+  The Building Blocks of IAM
+    - Users: A physical person
+    - Groups: Functions, such as admin, developer, etc. Contains users
+    - Roles: Internal usage within AWS
+
+  The Principle of Least Privilege
+    - Only assign a user the minimum amount of privileges they need to do their job
+
+############################################################
+
+Exam Tips
+  
+  Steps to Secure Your AWS Root Account
+    - Enable multi-factor authentication on the root account
+    - Create an admin group for your administrators, and assing the appropiate permissions to this group
+    - Create user accounts for your administrators
+    - Add your users to the admin group
+
+*** IAM Role manages who has access to your AWS resources, whereas IAM Policy control their permission 

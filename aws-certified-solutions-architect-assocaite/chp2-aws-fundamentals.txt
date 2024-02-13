@@ -1,0 +1,72 @@
+AWS Global Infrastructure
+  - 31 Regions, 99 availability zones
+
+  Region
+    - Physical location or geographical area
+    - Each region consists of 2 (or more) Availability Zones
+
+  Availability zones
+    - Think of it as a data center
+    - May be several data centers, but because they are close together, that are countes as 1 Availability Zone
+
+  Edge Locations
+    - Endpoints for AWS that are used for caching content
+    - Typically consists of CloudFront, Amazons content network delivery (CDN)
+    - Many more edge locations than Regions
+    - Currently, there are over 215 edge locations
+
+############################################################
+
+Who owns what in the Cloud
+  - Read shared responsibility doc on aws website
+
+  Customer
+    - Responsible for security IN the cloud
+
+  AWS
+    - Responsible for security OF the cloud
+
+############################################################
+
+Compute, Storage, Databases, and Networking
+
+  Compute
+    - EC2, Lambda, Elastic Beanstalk
+
+  Storage
+    - S3, EBS (elastic block store), EFS (elastic file service), FSx, Storage Gateway
+
+  Databases
+    - RDS, DynamoDB, Redshift
+
+  Networking
+    - VPCs, Direct Connect, Route53, API Gateway, AWS Global Accelerator
+
+############################################################
+
+Well-Architected Framework
+  - Go to https://aws.amazon.com/whitepapers
+  - Methodology -> Well-Architected Framework -> AWS Well-Architected Framework
+  - READ AT END OF COURSE
+
+  Six Pillars of the Well-Architected Framework
+    
+    Operational Excellence
+      - Running and monitoring systems to deliver business value, and continually improve processes
+        and procedures
+    
+    Performance Efficiency
+      - Using IT and computing resources efficiently
+
+    Security
+      - Protecting information and systems
+
+    Cost Optimization
+      - Avoiding unnecessary costs
+
+    Reliability
+      - Ensuring a workload performs its intended function correctly and consistently when it's
+        expected to
+    
+    Sustainability
+      - Minimizing the environmental impacts of running cloud workloads
