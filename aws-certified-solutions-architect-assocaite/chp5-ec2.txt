@@ -1,0 +1,224 @@
+EC2 Overview
+
+  EC2 Pricing Options
+    - On-Demand: Pay by the hour or the second, depending on the type of instance you run
+    - Reserved: Reserved capacity for 1 or 3 years. Up to 72% discount on the hourly charge
+    - Spot: Purchase unused capacity at a discount of up to 90%. Prices fluctuate with supple and demand
+    - Dedicated: A physical EC2 server dedicated for your use. The most expensive option
+
+  On-Demand Instances
+    - Flexible: Low cost and flexibility of the AWS EC2 without upfront payment or long-term commitment
+    - Short-Term: Apps with short-term, spiky, or unpredictable workloads that cannot be interrupted
+    - Testing the Water: Apps being developed or tested on AWS EC2 for the first time
+
+  Reserved Instances
+    - Predictable Usage: Apps with steady state or predictable usage
+    - Specific Capacity Requirements: Apps that require reserved capacity
+    - Pay up Front: You can make upfront payments to reduce the total computing costs even further
+    - Standard RIs (Reserved Instance): Up to 72% off the on-demand price
+    - Convertiable RIs: Up to 54% off the on-demand price. Has the option to change to a different RI type of equal or
+      greater value
+    - Scheduled RIs: Launch within the time window you define. Match your capacity reservation to predictable recurring schedule
+      that only requires a fraction of a day, week, or month
+    - Operate at a regional level
+
+  When to Use Spot Instance
+    - Flexible: Apps that have flexible start and end times
+    - Cost Sensitive: Apps that are only feasible at very low compute prices
+    - Urgent Capacity: Users with an urgent need for large amounts of additional computing capacity
+    - Ex: Image rendering, Genomic Sequencing, Algorithmic trading engines
+
+  Dedicated Hosts
+    - Compliance: Regulatory requirements that may not support multi-tenant virtualization
+    - On-Demand: Can be purchased on-demand (hourly)
+    - Licensing: Great for licensing that does not support multi-tenancy or cloud deployments
+    - Reserved: Can be purchased as a reservation for up to 70% off the on-demand price
+
+  Utilize AWS Pricing Calculator to estimate the cost for you architecture solution
+
+############################################################
+
+Using Roles
+
+  What is an IAM Role
+    - A role is an identity that you can create in IAM that has specific permissions. A role is similar to a user, as it is
+      an AWS Identity with permission policies that determine what the identity can and cannot do in AWS
+    - However, instead of being uniquely associated with one person, a role is intended to be assumable by anyone who needs it
+
+  Roles are Temporary
+    - A role does not have standard long-term credentials the same way passwords or access keys do. Instead, when you assume
+      a role, it provides you with a temporary security credentials for your role session
+    
+  What Else Can Roles Do?
+    - Roles can be assumed by people, AWS architecture, or other system-level accounts
+    - Roles can allow cross account access. This allows one AWS account the ability to interact with resources in other AWS
+      accounts
+
+  Exam Tips
+  
+    What to Remember When Using Roles
+      - The perferred option: Roles are preferred from a security perspective
+      - Avoid hard-coding your credentials: Roles allow you to provide access without the use of access key IDs and secret 
+        access key
+      - Policies: Policies control role's permissions
+      - Updates: You can update a policy attached to a role, and it will take immediate effect
+      - Attaching and Detaching: You can attach and detach roles to running EC2 instances without having to stop or terminate
+        those instances
+
+############################################################
+
+Security Groups and BootStrap Scripts
+
+  Security Groups
+    - Security groups are virtual firewalls for your EC2 instance. By default, everything is blocked
+    - To let everything in: 0.0.0.0/0
+    - In order to communicate with your EC2 instance, will need to open up the correct ports
+
+  BootStrap Scripts
+    - A script that runs when the instance first runs
+
+  Exam Tips
+    - Changes to security groups take effect immediately
+    - You can have any number of EC2 instances within a security group
+    - You can have multiple security groups attached to an EC2 instances
+    - All inbound traffic is blocked by default
+    - All outbound traffic is allowed
+
+############################################################
+
+EC2 MetaData and User Data
+  - Simply data about your EC2 instance
+  - Ex: private IP, public IP, address, hostname, security groups, etc.
+
+Bootstrap Script is aka User Data
+
+############################################################
+
+Networking with EC2
+
+  You can attach 3 different types of virtual network cards to your EC2
+    - ENI (Elastic Network Interface)
+      - For basic day-to-day Networking
+    - EN (Enhanced Networking)
+      - Uses single root I/O virtualization (SR-IOV) to provide high performance
+    - EFA (Elastic Fabric Adapter)
+      - Accelerates High Performance Computing (HPC) and machine learning apps 
+
+############################################################
+
+Optimizing with EC2 Placement Groups
+
+  3 Types of Placement Groups
+    - Cluster
+    - Spread
+    - Partition
+
+  Cluster Placement Group
+    - Grouping of instance within a single availability zone. Recommended for apps that need low network latency, high network
+      throughput, or both
+    - Fact: Only certain instance types can be launched into a cluster placement group
+  
+  Spread Placement Group
+    - Group of instances that are each placed on distinct underlying hardware
+    - Recommended for apps that have small number of critical instances that should be kept separate from one another
+    - Used on different instances
+
+  Parition Placement Group
+    - EC2 divides each group into logical segments called partitions
+    - Used for multiple instances
+  
+############################################################
+
+Solving License Issues with Dedicated Hosts
+
+  Exam Tips
+    - Any question that talks about special licensing requirements, think about Dedicated Hosts
+
+############################################################
+
+Timing Workloads with Spot Instances and Spot Fleets
+
+  EC2 Spot Instances
+    - let you take advantage of unused EC2 capacity in the AWS Cloud. Spot Instances are available at up to a 90% discount compared
+      to On-Demand prices
+
+  When to Use Spot Instances
+    - Stateless, fault-tolerant, or flexible applications
+    - Apps such as big data, containerized workloads, CI/CD, HPC, and other test and development workloads
+
+  Spot Prices
+    - To use Spot Instances, you must first decide on your maximum Spot price. The instance will be provisioned so long as the Spot price
+      is BELOW your maximum Spot price
+    - The hourly Spot price varies depending on capacity and region
+    - If the Spot price goes above your maximum, you have 2 minutes to choose whether to stop or terminate your instance
+    - AWS provides Spot pricing history. This way you can look, choose your region, and maximum
+
+  Use Cases (Good for)
+    - Big data and analytics
+    - Containerized workloads
+    - CI/CD and testing
+    - Image and media rendering
+    - HPC
+
+  Use Cases (Not good for)
+    - Persistent workloads (websites)
+    - Critical jobs
+    - Databases
+
+  Terminating Spot Instances with persitent Request type
+    - Cancel Spot request
+    - Terminate instances
+
+  Lanch Pools
+    - Spot Fleets will try and match the target capacity with your price restraints
+    - Set up different launch pools. Define things like EC2 instance type, operating system, and AZ
+    - You can have multiple pools, and the fleet will choose the best way to implement depending on the strategy you define
+    - Spot fleets will stop launching instance once you reach your price threshold or capacity desire
+
+  Strategies for Spot Fleets
+    - capacityOptimized
+    - LowestPrice
+    - diversified
+    - InstancePoolsToUseCount
+
+############################################################
+
+Deploying vCenter in AWS with VMware Cloud on AWS
+
+  Why Use VMware
+    - VMware is used by orgs around the world for private cloud deployments. Some orgs opt for a hybrid cloud strategy and would
+      like to leverage AWS services
+
+  Use Cases for VMware
+    - Hybrid Cloud: Connect you on-prem cloud to the AWS public cloud, and manage hybrid workload
+    - Cloud Migration: migrating existing cloud envs to AWS using VMware's built-in tools
+    - Disaster Recovery: VMware is famous for its disaster recover tech. Using hybrid cloud, you can have an inexpensive disaster recovery 
+      env on AWS
+    - Leverage AWS: Use over 200 AWS services to update your applications or to create new ones
+
+  VMware Cloud on AWS (How is it deployed?)
+    - It runs on dedicated hardware hosted in AWS using a single AWS account
+    - Each host has two sockets with 18 cores per socket, 512 GiB RAM, and 15.2 TB Raw SSD storage
+    - Each host is capable of running multiple VMware instances (up to hundreds)
+    - Clusters can start with two hosts up to a max of 16 hosts per cluster
+
+############################################################
+
+Extending AWS Beyond the Cloud with AWS Outposts
+
+  What is Outposts?
+    - Brings AWS data center directly to you, on-premises
+
+  Benefits of Outposts
+    - Hybrid Cloud
+    - Fully Managed Infrastructure
+    - Consistency
+
+  Outposts Family Members
+    - Outposts Rack: Hardware, Servies, Results. Used in a data center or a place where you have a lot of storage
+    - Outpost Servers: Indiviual Servers. Used in small spaces like an office or retail store
+
+  Process
+    - Order, Install, Launch, Build
+
+############################################################
