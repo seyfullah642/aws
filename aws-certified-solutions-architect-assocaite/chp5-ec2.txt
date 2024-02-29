@@ -220,5 +220,3 @@ Extending AWS Beyond the Cloud with AWS Outposts
 
   Process
     - Order, Install, Launch, Build
-
-############################################################
