@@ -1,0 +1,117 @@
+VPC Overview
+
+  What is a VPC?
+    - Think of a VPC as a virtual data center in the cloud
+    - Logically isolated part of AWS Cloud where you can define your own network
+    - Complete control of virtual network, including your own IP address range, subnets, route tables, and network gateways
+
+  Fully Customizable Network
+    - You can leverage multiple layers of security, including SGs and NACLs, to help control access to Amazon EC2 instances in
+      each subnet
+
+      Web: Public facing
+      Application: Private subnet. Can only speak to web tier and database tier
+      Database: Private subnet. Can only speak to application tier
+
+  VPNs
+    - Additionally, you can create a hardware Virtual Private Network (VPN) connection between your corporate data center and your
+      VPC and leverage the AWS Cloud as an extension of your corporate data center
+    - Check out CIDR.xyz
+
+  VPC Features
+
+    What can we do with a VPC?
+      - Launch Instances: Launch instances into a subnet of your choosing
+      - Custome IP Addresses: Assign custom IP adress ranges in each subnet
+      - Route Tables: Configure route tables between subnets
+      - Internet Gateway: Create internet gateway and attach it to our VPC
+      - More Control: Much better security control over your AWS resources
+      - Access Control Lists: Subnet network access control Lists
+      - BONUS TIP: You can use network access control lists (NACLs) to block specific IP addresses
+
+  Exam Tips
+    - 1 subnet is always in 1 availability zone
+
+############################################################
+
+Demo: Provisioning a VPC part 1
+
+  Exam Tips
+    - Think of a VPC as a logical data center in AWS
+    - Consists of internet gateways (or virtual private gateways), route tables, NACLs, subnets, and SGs
+    - 1 subnet is always in 1 availability zone
+
+############################################################
+
+Demo: Provisioning a VPC part 2
+   
+  Internet Gateway 
+    - Required for subnets to be public
+    - Used to access VPC
+    - Can only attach one VPC
+
+  Route Table
+    - Gives a way out to the Internet Gateway
+    - 0.0.0.0/0 is for the outside world
+    - Need to associate subnet we want public in RTB
+
+  VPC Creation workflow
+    - VPC 
+    - Subnet (attach subnets to VPC) 
+    - Internet Gateway (attach VPC to internet)
+    - Route Table (attach to VPC ensure proper association of subnets)
+
+############################################################
+
+Using NAT Gateways for Internet Access
+
+  NAT Gateways
+    - You can use a network address translation (NAT) gateway to enable instances in a private subnet to connect to the internet or other
+      AWS services while preventing the internet from initiating a connection with those innstances
+    - You provision NAT Gateway in public subnet
+    - Same AZ as subnet
+
+  5 Facts to Remember about NAT Gateways
+    - Redundant inside the AZ
+    - Starts at 5 Gbps and scales currently to 45 Gbps
+    - No need to patch
+    - Not associated with SGs
+    - Automatically assigned a public address
+
+############################################################
+
+Protecting Your Resources with SGs
+
+  How Computers Communicate
+    - Linux: SSH port 22
+    - Windows: RDP port 3389
+    - HTTP: Web browsing port 80
+    - HTTPS: Encrypted Web Browsing (SSL) 443
+
+  What Are Security Groups?
+    - SGs are virtual firewalls for an EC2 instance. By default, everything is blocked
+    - To let everything in: 0.0.0.0/0
+    - In order to communicate to your EC2 instances via SSH, RDP, or HTTP, you will need to open up the correct ports
+
+  Exam Tip
+    - SGs are stateful -- if you send a reques from your instance, the reponse traffic for that request is allowed to flow in regardless of
+      inbound SG rules
+    - Response to allowed inbound traffic are allowed to flow out, regardless of outbound rules
+
+############################################################
+
+Controlling Subnet Traffic with NACLs
+
+  What is a NACL?
+    - The first line of defense
+    - A network access control list (ACL) is an optional layer of security for your VPC that acts as a firewall for controlling traffic in
+      and out of one or more subnets
+    - You might set up network ACLs with rules similar to your SGs in order to add another layer of security to your VPC
+
+  Network ACLs Overview
+    - Default NACLs: Your VPC automatically comes with a default NACL, and by default it allows all outbound and inbound traffic
+    - Custome NACLs: You can create custome network ACLs. By default, each custom network ACL denies all inbound and outbound traffic until
+      you add rules
+    - Subnet Association: Each subnet in your VPC must be associated with a NACL. If you don't explicitly associate a subnet with a NACL,
+      the subnet is automatically associated with the default NACL
+    - Block IP Addresses: Block IP addresses using NACL, not SGs
