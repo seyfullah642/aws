@@ -1,0 +1,66 @@
+EBS (Elastic Block Storage) Overview
+
+  EBS
+    - Storage volumes you can attach to your EC2 instances
+    - Create a file system
+    - Run a database
+    - Run an operating system
+    - Store data
+    - Install apps
+
+  Mission Critical
+    - Production Workloads: Designed for mission-critical workloads
+    - Highly Available: Automatically replicated within a single AZ to protect against hardware failure
+    - Scalable: Dynamically increase capacity and change the volume type with no downtime or performance impact to your live systems
+
+  EBS Volume Types: Solid State Disk 
+    - General Purpose SSD (gp2): A Balance of price and performance
+
+    GP2
+      - 3 IOPS per GiB, up to a maximum of 16,000 IOPS per volume
+      - gp2 volumes smaller than 1TB can burst up to 3,000 IOPS
+      - Good for boot volumes or development and test apps that are not latency Sensitive
+    
+    GP3
+      - Predictable 3,000 IOPS baseline performance and 125 MiB/s regardless of volume size
+      - Ideal for app that require high performance at a low cost, such as MySQL, Cassandra, virtual desktop, and Hadoop analytics
+      - Customers looking for higher performance can scale up to 16,000 IOPS and 1,000 MiB/s for an additional fee
+      - The top performance of gp3 is 4 times faster than max throughput of gp2 volumes
+
+    Provisioned IOPS SSD (io1)
+      - The high-performance option and the most expensive
+      - Up to 64,000 IOPS per volume. 50 IOPS per GiB
+      - Use if you need more than 16,000 IOPS
+      - Designed for I/O-intensive apps, large databases, and latency-sensitive workloads
+
+    Provisioned IOPS SSD (io2)
+      - Latest generation
+      - Higher durability and more IOPS
+      - Up to 64,000 IOPS per volume. 500 IOPS per GiB
+      - 99.999% durability
+
+  EBS Volume Types: Hard Disk Drive (MB/s-Instensive)
+    
+    Optimized HDD (st1)
+      - Low-cost HDD volume
+      - Baseline throughput of 40 MB/s per TB
+      - Ability to burst up to 250 MB/s per TB
+      - Maximum throughput of 500 MB/s per volume
+      - Frequently accessed, thoughput-intensive workloads
+      - Big data, data warehouses, ETL, and log processing
+      - A cost-effect way to store mountains of data
+      - Cannot be a boot volume
+
+    Cold HDD (SC1)
+      - lowest cost option
+      - Baseline throughput of 12 MB/s per TB
+      - Ability to burst up to 80 MB/s per TB
+      - Maximum throughput of 250 MB/s per volume
+      - A good choice for colder data requiring fewer scans per day
+      - Good for apps that need the lowest cost and performance is not a factor
+      - Cannot be a boot volume
+
+  IOPS vs Throughput
+
+
+############################################################
