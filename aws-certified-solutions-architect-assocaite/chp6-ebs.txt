@@ -62,5 +62,102 @@ EBS (Elastic Block Storage) Overview
 
   IOPS vs Throughput
 
+    IOPS
+      - Measures the number of read and write operations per second
+      - Imoprtant metric for quick transactions, low latency apps, transactional workloads
+      - The ability to action reads and writes very quickly
+      - Choose provisioned IOPS SSD (io1 or io2)
+
+    Throughput
+      - Measures the number of bits read or writtent per second (MB/s)
+      - Important metric for large datasets, large I/O sizes, complex queries
+      - The ability to deal with large datasets
+      - Choose Throughput Optimized HDD (st1)
+
 
 ############################################################
+
+Volumes and Snapshots
+
+  What are Volumes?
+    - Volumes exists on EBS
+    - Think of it as a virtual hard Disk
+    - Volumes are simply virtual hard disks. You need a minimum of 1 volume per ec2 instance. This is called the root device volume
+
+  What are Snapshots?
+    - Snapshots exist on S3
+    - Snapshots are point in time
+    - Snapshots are incremental: Only the data that has been changed since you last snapshot are moved to S3
+    - First Snapshot: May take some time to create as there is no previous point-in-time copy
+
+  What to know about EBS Volumes
+    - EBS volume will always be in the same AZ as ec2
+    - Resize on the fly: No need to stop or restart instance. However, you will need to extend the filesystem in the OS so the OS can see the resized volume
+    - Switch volume types i.e. from gp2 to io2
+
+############################################################
+
+Protecting EBS Volumes with Encryption
+
+  EBS Encryption
+    - Uses industry-standard AES-256 algorithm
+    - Also uses AWS KMS (Key Management Service) CMK (customer master keys) when creating encrypted volumes and snapshots
+
+  What happens when you encrypt an EBS volume?
+    - Data at rest is encrypted inside the volume
+    - All data in flight moving between the instances and volume is encrypted
+    - All snapshots are encrypted
+    - All volumes created from the snapshots are encrypted
+
+  EBS encryption
+    - Handled Transparently: Encryption and decryption are handled transparently (You don't need to do anything)
+    - Latency: Encryption has minimal latency
+    - Copying: Copying an unencrypted snapshot allows for encryption
+    - Snapshots: Snapshots of encrypted volumes are encrypted
+    - Root Device Volumes: You can now encrypt root device volumes upon creation
+
+############################################################
+
+EC Hibernation
+
+  What you need to know about EC2 Hibernation
+    - EC2 hibernation preserves the in-memory RAM on persistent storage (EBS)
+    - Much faster to boot up because you do not need to reload the OS
+    - Instance RAM must be less than 150GB
+    - Instance families include instances in General Purpose, Compute, Memory and Storage Optimized groups
+    - Available for Windows, AL2 AMI, and Ubuntu
+    - Instances can't be hibernated for more than 60 days
+    - Available for On-Demand instances and Reserved instances
+
+############################################################
+
+EFS Overview
+
+  What to Remember about EFS
+    - Supports the Network File System version 4 (NFSv4) protocol
+    - Only pay for the storage you use (no pre-provisioning required)
+    - Can scale up to petabytes
+    - Can support thousands of concurrent NGS connections
+    - Data is stored across multiple AZs within a region
+    - Read-after-write consistency
+    - Bonus Tip: If you have a scenario-based question around highly scalable shared storage using NFS, think EFS
+
+############################################################
+
+FSx Overview
+
+  What is FSx for Windows?
+    - A Window File Server provides a fully managed native Microsoft Windows file system so you can easily move your Windows-based applications that
+      require file storage to AWS
+    - AWS FSx is built on Windows Server
+
+  FSx for Lustre
+    - A fully managed file system that is optimized for compute-intensive workloads
+      - HPC
+      - ML
+      - Media data processing workflows
+
+  Exam Tips
+    - EFS: When you need distributed, highly resilent storage for Linux instances and Linux-based apps
+    - AWS FSx for Windows: This is essentially just for Windows apps
+    - AWS FSx for Lustre: When you need high-speed, high-capacity distributed storage
