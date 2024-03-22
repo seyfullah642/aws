@@ -1,0 +1,35 @@
+Relational Databases
+
+  RDS Database Types
+    - SQL Server
+    - Oracle
+    - MySQL
+    - PostgreSQL
+    - MariaDB
+    - Amazon Aurora
+
+  RDS is for OLTP Workloads
+    - Great for processing lots of small transactions, like customer orders, banking transaction, payments, and booking systems
+
+  Not Suitable for OLAP Workloads
+    - Use Redshift for data warehousing and OLAP tasks, like analyzing large amounts of data, reporting, and sales forecasting
+
+############################################################
+
+Increasing Read Performance with Read Replicas
+
+  Multi-AZ
+    - An exact copy of your production database in another AZ
+    - Used for disaster recovery
+    - In the event of a failure, RDS will automatically fail over to the standby instance
+
+  Read Replica
+    - A read-only copy of your primary database in the same AZ, cross-AZ, or cross-region
+    - Used to increase or scale read performance
+    - Great for read-heavy workloads and takes the load off your primary database for read-only workloads (e.g. Business Intelligence reporting jobs)
+
+############################################################
+
+What is Amazon Aurora?
+
+  
